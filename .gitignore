@@ -1,0 +1,17 @@
+# Tools installed by `make tools`
+/.tools/
+
+# Build output
+/bin/
+/dist/
+
+# Test and profiling output
+*.test
+*.out
+*.prof
+
+# Editors and OS noise
+.idea/
+.vscode/
+*.swp
+.DS_Store
