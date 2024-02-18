@@ -47,7 +47,13 @@ func CheckDigit(payload string) (byte, error) {
 	if bad >= 0 {
 		return 0, &NonDigitError{Pos: bad, Char: payload[bad]}
 	}
-	return '0' + byte((10-total%10)%10), nil
+	return digitFor(total), nil
+}
+
+// digitFor returns the ASCII check digit that brings a payload sum up to the
+// next multiple of ten.
+func digitFor(total int) byte {
+	return '0' + byte((10-total%10)%10)
 }
 
 // sum folds the Luhn sum over s. Digits are doubled based on their distance
