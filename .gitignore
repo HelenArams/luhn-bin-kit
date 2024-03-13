@@ -1,8 +1,8 @@
 # Tools installed by `make tools`
 /.tools/
 
-# Build output
-/bin/
+# Build output (the bin/ directory is a package, not build output)
+/cardkit
 /dist/
 
 # Test and profiling output

@@ -42,4 +42,4 @@ install:
 	go install ./cmd/cardkit
 
 clean:
-	rm -rf bin dist coverage.out
+	rm -rf cardkit dist coverage.out
