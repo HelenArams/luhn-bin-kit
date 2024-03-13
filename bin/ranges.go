@@ -29,9 +29,11 @@ type entry struct {
 }
 
 // table lists every known range, longest prefix first, so that the most
-// specific assignment wins: Discover's 622126–622925 must be found before a
-// shorter range that happens to start with 62. The order within one prefix
-// length does not matter because ranges of equal length never overlap.
+// specific assignment wins: Discover's 622126–622925 carve-out sits inside
+// UnionPay's 62 and must be checked first. The order within one prefix
+// length does not matter because ranges of equal length never overlap;
+// Maestro is therefore spelled out as the 2-digit blocks that no other
+// scheme claims rather than the "50, 56–69" shorthand often quoted.
 // TestTable enforces both properties.
 var table = []entry{
 	{Range{"622126", "622925"}, Discover},
@@ -40,6 +42,7 @@ var table = []entry{
 	{Range{"3095", "3095"}, Diners},
 	{Range{"3528", "3589"}, JCB},
 	{Range{"6011", "6011"}, Discover},
+	{Range{"6304", "6304"}, Maestro},
 
 	{Range{"300", "305"}, Diners},
 	{Range{"644", "649"}, Discover},
@@ -48,8 +51,12 @@ var table = []entry{
 	{Range{"36", "36"}, Diners},
 	{Range{"37", "37"}, Amex},
 	{Range{"38", "39"}, Diners},
+	{Range{"50", "50"}, Maestro},
 	{Range{"51", "55"}, Mastercard},
+	{Range{"56", "58"}, Maestro},
+	{Range{"62", "62"}, UnionPay},
 	{Range{"65", "65"}, Discover},
+	{Range{"67", "67"}, Maestro},
 
 	{Range{"4", "4"}, Visa},
 }

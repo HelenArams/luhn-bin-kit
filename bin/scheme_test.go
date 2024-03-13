@@ -19,6 +19,8 @@ func TestSchemeStringAndID(t *testing.T) {
 		{Discover, "Discover", "discover"},
 		{JCB, "JCB", "jcb"},
 		{Diners, "Diners Club", "diners"},
+		{UnionPay, "UnionPay", "unionpay"},
+		{Maestro, "Maestro", "maestro"},
 		{Scheme(200), "Scheme(200)", ""},
 	}
 	for _, tt := range tests {
@@ -51,6 +53,12 @@ func TestParseScheme(t *testing.T) {
 		{"diners", Diners},
 		{"Diners Club", Diners},
 		{"diners club international", Diners},
+		{"unionpay", UnionPay},
+		{"Union Pay", UnionPay},
+		{"China UnionPay", UnionPay},
+		{"cup", UnionPay},
+		{"maestro", Maestro},
+		{"MAESTRO", Maestro},
 		{"unknown", Unknown},
 	}
 	for _, tt := range tests {
@@ -150,6 +158,10 @@ func TestLengths(t *testing.T) {
 		{Diners, 14, true},
 		{Diners, 19, true},
 		{Diners, 13, false},
+		{Maestro, 12, true},
+		{Maestro, 11, false},
+		{UnionPay, 19, true},
+		{UnionPay, 15, false},
 		{Unknown, 16, false},
 		{Scheme(99), 16, false},
 	}

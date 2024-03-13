@@ -19,6 +19,8 @@ const (
 	Discover
 	JCB
 	Diners
+	UnionPay
+	Maestro
 )
 
 // names are the display names returned by String.
@@ -30,6 +32,8 @@ var names = [...]string{
 	Discover:   "Discover",
 	JCB:        "JCB",
 	Diners:     "Diners Club",
+	UnionPay:   "UnionPay",
+	Maestro:    "Maestro",
 }
 
 // ids are the stable lower-case identifiers returned by ID and used for
@@ -42,6 +46,8 @@ var ids = [...]string{
 	Discover:   "discover",
 	JCB:        "jcb",
 	Diners:     "diners",
+	UnionPay:   "unionpay",
+	Maestro:    "maestro",
 }
 
 // aliases are extra spellings accepted by ParseScheme, keyed by their
@@ -52,6 +58,8 @@ var aliases = map[string]Scheme{
 	"americanexpress":         Amex,
 	"dinersclub":              Diners,
 	"dinersclubinternational": Diners,
+	"cup":                     UnionPay,
+	"chinaunionpay":           UnionPay,
 }
 
 // lengths lists the number lengths each scheme issues, ascending.
@@ -62,6 +70,8 @@ var lengths = [...][]int{
 	Discover:   {16, 19},
 	JCB:        {16, 17, 18, 19},
 	Diners:     {14, 15, 16, 17, 18, 19},
+	UnionPay:   {16, 17, 18, 19},
+	Maestro:    {12, 13, 14, 15, 16, 17, 18, 19},
 }
 
 // ErrUnknownScheme is returned by Validate when no range matches the number.
@@ -88,7 +98,7 @@ func (e *UnknownSchemeError) Is(target error) bool {
 // Schemes returns every scheme Detect can report, in a stable order that is
 // convenient for help texts and tables. Unknown is not included.
 func Schemes() []Scheme {
-	return []Scheme{Visa, Mastercard, Amex, Discover, JCB, Diners}
+	return []Scheme{Visa, Mastercard, Amex, Discover, JCB, UnionPay, Maestro, Diners}
 }
 
 // String returns the display name of the scheme, for example "American

@@ -67,6 +67,30 @@ func TestEverySchemeIsFullyDescribed(t *testing.T) {
 	}
 }
 
+// TestCarveOuts checks the cases where a longer range belonging to one scheme
+// sits inside a shorter range of another, which is exactly what the
+// longest-prefix-first ordering exists for.
+func TestCarveOuts(t *testing.T) {
+	tests := []struct {
+		in   string
+		want Scheme
+	}{
+		{"62212600", Discover},
+		{"62292599", Discover},
+		{"62212599", UnionPay},
+		{"62292600", UnionPay},
+		{"62000000", UnionPay},
+		{"60110000", Discover},
+		{"63040000", Maestro},
+		{"67590000", Maestro},
+	}
+	for _, tt := range tests {
+		if got, _ := Detect(tt.in); got != tt.want {
+			t.Errorf("Detect(%q) = %v, want %v", tt.in, got, tt.want)
+		}
+	}
+}
+
 func TestRanges(t *testing.T) {
 	got := Ranges(Discover)
 	want := []Range{{"622126", "622925"}, {"6011", "6011"}, {"644", "649"}, {"65", "65"}}

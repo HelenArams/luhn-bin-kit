@@ -8,13 +8,14 @@ import (
 )
 
 func ExampleDetect() {
-	for _, pan := range []string{"4111111111111111", "378282246310005", "6221260000000000", "9999"} {
+	for _, pan := range []string{"4111111111111111", "378282246310005", "6200000000000005", "6221260000000000", "9999"} {
 		scheme, ok := bin.Detect(pan)
 		fmt.Println(scheme, ok)
 	}
 	// Output:
 	// Visa true
 	// American Express true
+	// UnionPay true
 	// Discover true
 	// Unknown false
 }
