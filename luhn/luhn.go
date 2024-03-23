@@ -50,8 +50,6 @@ func CheckDigit(payload string) (byte, error) {
 	return digitFor(total), nil
 }
 
-// digitFor returns the ASCII check digit that brings a payload sum up to the
-// next multiple of ten.
 func digitFor(total int) byte {
 	return '0' + byte((10-total%10)%10)
 }

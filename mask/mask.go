@@ -78,6 +78,8 @@ func Mask(pan string) (string, error) {
 	if len(d) < MinLength {
 		return "", ErrTooShort
 	}
+	// PCI allows first 6 + last 4, but on a short number that would show
+	// everything, so below 10 digits only the last four survive.
 	keep := keepPrefix
 	if len(d) < keepPrefix+keepSuffix {
 		keep = 0
@@ -99,8 +101,6 @@ func Last4(pan string) (string, error) {
 	return d[len(d)-keepSuffix:], nil
 }
 
-// hide replaces everything between the first prefix and the last suffix
-// digits of d with Char. The caller guarantees prefix+suffix <= len(d).
 func hide(d string, prefix, suffix int) string {
 	b := make([]byte, len(d))
 	copy(b, d[:prefix])

@@ -23,7 +23,6 @@ const (
 	Maestro
 )
 
-// names are the display names returned by String.
 var names = [...]string{
 	Unknown:    "Unknown",
 	Visa:       "Visa",
@@ -36,8 +35,7 @@ var names = [...]string{
 	Maestro:    "Maestro",
 }
 
-// ids are the stable lower-case identifiers returned by ID and used for
-// text marshaling. Unlike display names they never contain spaces.
+// ids never change once published - they end up in JSON and config files.
 var ids = [...]string{
 	Unknown:    "unknown",
 	Visa:       "visa",
@@ -62,7 +60,7 @@ var aliases = map[string]Scheme{
 	"chinaunionpay":           UnionPay,
 }
 
-// lengths lists the number lengths each scheme issues, ascending.
+// NOTE: Maestro is the messy one, 12-19 covers what is still in circulation.
 var lengths = [...][]int{
 	Visa:       {13, 16, 19},
 	Mastercard: {16},

@@ -23,6 +23,8 @@ func (r Range) Contains(digits string) bool {
 	return p >= r.Lo && p <= r.Hi
 }
 
+// TODO: networks moved to 8-digit BINs in 2022; worth supporting 8-digit
+// ranges once there's a public list worth embedding.
 type entry struct {
 	Range
 	scheme Scheme
