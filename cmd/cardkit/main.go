@@ -7,11 +7,15 @@
 //	cardkit validate [-strict] [number...]
 //	cardkit detect [-id] [number...]
 //	cardkit mask [-last4] [number...]
+//	cardkit gen --scheme visa [-count 5] [-length 16] [-seed n]
 //
 // Numbers may contain spaces or hyphens. When no number is given on the
 // command line they are read from standard input, one per line. When more
 // than one number is processed each output line is prefixed with the
 // masked input, so results can be told apart without echoing full numbers.
+//
+// Numbers printed by gen are random test data. They pass the checks above
+// but do not belong to any real account.
 //
 // The exit status is 0 when every number passed, 1 when at least one did
 // not, and 2 for usage errors.
@@ -49,6 +53,7 @@ var commands = []command{
 	{"validate", "check the Luhn digit, scheme and length of numbers", cmdValidate},
 	{"detect", "print the card scheme that owns each number or BIN", cmdDetect},
 	{"mask", "hide all but the first six and last four digits", cmdMask},
+	{"gen", "generate Luhn-valid test numbers for a scheme", cmdGen},
 }
 
 func run(args []string, stdin io.Reader, stdout, stderr io.Writer) int {
