@@ -27,6 +27,15 @@ fmt:
 fmt-check:
 	@out="$$(gofmt -s -l .)"; if [ -n "$$out" ]; then echo "gofmt needed:"; echo "$$out"; exit 1; fi
 
+FUZZTIME ?= 30s
+
+fuzz:
+	go test -run='^$$' -fuzz=FuzzValid -fuzztime=$(FUZZTIME) ./luhn
+	go test -run='^$$' -fuzz=FuzzMask -fuzztime=$(FUZZTIME) ./mask
+
+bench:
+	go test -run='^$$' -bench=. -benchmem ./luhn ./bin
+
 lint: $(GOLANGCI_LINT)
 	$(GOLANGCI_LINT) run ./...
 
